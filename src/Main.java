@@ -7,7 +7,7 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        Tank tank1=new Tank(500,500, 15,  0.00001);
+        Tank tank1=new Tank(500,500, 1,  0.5);
 
 
         // Создаем окно
