@@ -40,6 +40,7 @@ public class Tank {
            if ((Math.abs(vy))<VMax) {
                System.out.println(vy + " " + Math.abs(vy) + " " + VMax + " " +(Math.abs(vy)<VMax));
                vy = vy - a;
+               //grfeshgfgfwstygswghsdtgwyhg
            }
         }
 
