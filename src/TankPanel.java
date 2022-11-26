@@ -12,15 +12,29 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
     @Override
     public boolean dispatchKeyEvent(KeyEvent e) {
 
-        if (e.getID() == KeyEvent.KEY_TYPED) {
-            if(e.getKeyChar() == 'w')
-                tank.typeOfEventW = "typed";
+        if (e.getID() == KeyEvent.KEY_PRESSED) {
+            if (e.getKeyChar() == 'w')
+                tank.typeOfEventW = true;
             if(e.getKeyChar() == 'a')
-                tank.typeOfEventA = "typed";
+                tank.typeOfEventA = true;
             if(e.getKeyChar() == 's')
-                tank.typeOfEventS = "typed";
+                tank.typeOfEventS = true;
             if(e.getKeyChar() == 'd')
-                tank.typeOfEventD = "typed";
+                tank.typeOfEventD = true;
+        }
+        if(e.getID() == KeyEvent.KEY_RELEASED){
+            if (e.getKeyChar() == 'w'){
+                tank.typeOfEventW = false;
+            }
+            if (e.getKeyChar() == 'a'){
+                tank.typeOfEventA = false;
+            }
+            if (e.getKeyChar() == 's'){
+                tank.typeOfEventS = false;
+            }
+            if (e.getKeyChar() == 'd'){
+                tank.typeOfEventD = false;
+            }
         }
 
 
@@ -31,7 +45,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         tank.paint(g);
-        tank.UpdetePlace();
+        tank.UpdatePlace();
     }
 
 
