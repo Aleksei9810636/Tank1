@@ -5,11 +5,13 @@ import java.io.IOException;
 public class TankPanel extends JPanel implements KeyEventDispatcher  {
     Tank tank;
     Wall wall;
+    Gun gun;
     boolean Push;
 
-    public TankPanel(Tank tank, Wall wall) throws IOException {       //Это вероятно не надо
+    public TankPanel(Tank tank, Wall wall, Gun gun) throws IOException {       //Это вероятно не надо
         this.tank=tank;
         this.wall=wall;
+        this.gun=gun;
 
     }
 
@@ -56,6 +58,8 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
 
         tank.paint(g);
         wall.paint(g);
+        gun.paint(g);
+        gun.UpdatePlace();
     }
 
 

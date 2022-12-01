@@ -6,12 +6,14 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Tank tank1=new Tank(500,500, 1,  0.02);
+        GameObject gameObject=new GameObject(500,500, 1,  0.002);
+        Tank tank1=new Tank(500,500, 1,  0.002);
         Wall wall=new Wall(700, 400, 200, 25);
+        Gun gun=new Gun(500, 500, 1, 0.002);
 
         // Создаем окно
         JFrame frame = new JFrame();
-        TankPanel tankPanel=new TankPanel(tank1, wall);
+        TankPanel tankPanel=new TankPanel(tank1, wall, gun);
         frame.add(tankPanel);        // добавляем в окно панель
         frame.setSize(1600, 1000);
         frame.setVisible(true);
