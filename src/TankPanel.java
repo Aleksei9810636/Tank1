@@ -4,9 +4,13 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 public class TankPanel extends JPanel implements KeyEventDispatcher  {
     Tank tank;
+    Wall wall;
+    boolean Push;
 
-    public TankPanel(Tank tank) throws IOException {       //Это вероятно не надо
+    public TankPanel(Tank tank, Wall wall) throws IOException {       //Это вероятно не надо
         this.tank=tank;
+        this.wall=wall;
+
     }
 
     @Override
@@ -36,17 +40,24 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
                 tank.typeOfEventD = false;
             }
         }
-
-
-
         return false;
     }
+
+    public void updateCollisions(){
+//        if ( (tank.x > wall.x)&&(tank.x<(wall.x+ wall.width-tank.img.getWidth()))              )
+
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        tank.paint(g);
         tank.UpdatePlace();
+        updateCollisions();
+
+        tank.paint(g);
+        wall.paint(g);
     }
+
 
 
 

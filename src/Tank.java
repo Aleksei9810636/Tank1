@@ -35,6 +35,7 @@ public class Tank {
         BufferedImage img=rotateImage(image, angle);
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(img, (int) (x-img.getWidth()*0.5), (int) (y-img.getHeight()*0.5), null);
+        System.out.println(x + "           " + y);
     }
 
     public static BufferedImage rotateImage(BufferedImage img, double angle) {
@@ -44,7 +45,7 @@ public class Tank {
         int h = img.getHeight();
         int newW = (int) Math.floor(w*cos + h*sin);
         int newH = (int) Math.floor(h*cos + w*sin);
-        BufferedImage rotated = new BufferedImage(newW, newH, BufferedImage.TYPE_4BYTE_ABGR);
+        BufferedImage rotated = new BufferedImage(newW, newH, BufferedImage.TYPE_3BYTE_BGR);
         Graphics2D g = rotated.createGraphics();
 //        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 //        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
@@ -53,7 +54,7 @@ public class Tank {
         g.drawRenderedImage(img, null);
         g.dispose();
         return rotated;
-    }
+    }       // Оно поварачивает картинку
 
     public void UpdatePlace(){
         double angleInRadians = Math.toRadians(angle);
