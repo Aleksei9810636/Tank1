@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        GameObject gameObject=new GameObject(500,500, 1,  0.002);
+        GameObject gameObject=new GameObject(500,500, 1,  0.02);
         Tank tank1=new Tank(500,500, 1,  0.002);
         Wall wall=new Wall(700, 400, 200, 25);
         Gun gun=new Gun(500, 500, 1, 0.002);

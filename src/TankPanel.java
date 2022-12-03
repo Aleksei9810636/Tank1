@@ -59,7 +59,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
         tank.paint(g);
         wall.paint(g);
         gun.paint(g);
-        gun.UpdatePlace();
+//        Tank.isPolygonsIntersecting();
     }
 
 
