@@ -35,7 +35,6 @@ public class GameObject {
             BufferedImage img=rotateImage(image, angle);
             Graphics2D g2d = (Graphics2D) g;
             g2d.drawImage(img, (int) (x-img.getWidth()*0.5), (int) (y-img.getHeight()*0.5), null);
-            System.out.println(x + "           " + y);
 
         }
 
