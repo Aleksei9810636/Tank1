@@ -52,8 +52,25 @@ public class Tank extends GameObject {
                 VAngle -= Math.signum(VAngle) * a;
             }
         }
-        System.out.println(angle);
+
     }
+
+    public int[] getTankX() {
+        int[] TankX=new int[]{(int)(x+image.getWidth()*0.5*Math.cos(angle)+image.getHeight()*0.5*Math.sin(angle)),
+                (int)(x-image.getWidth()*0.5*Math.cos(angle)+image.getHeight()*0.5*Math.sin(angle)),
+                (int)(x-image.getWidth()*0.5*Math.cos(angle)-image.getHeight()*0.5*Math.sin(angle)),
+                (int)(x+image.getWidth()*0.5*Math.cos(angle)-image.getHeight()*0.5*Math.sin(angle)) };
+        return TankX;
+    }
+    public int[] getTankY() {
+        int[] TankY=new int[]{(int)(y+image.getWidth()*0.5*Math.sin(angle)+image.getHeight()*0.5*Math.cos(angle)),
+                (int)(y-image.getWidth()*0.5*Math.sin(angle)+image.getHeight()*0.5*Math.cos(angle)),
+                (int)(y-image.getWidth()*0.5*Math.sin(angle)-image.getHeight()*0.5*Math.cos(angle)),
+                (int)(y-image.getWidth()*0.5*Math.sin(angle)-image.getHeight()*0.5*Math.cos(angle)) };        // тут может быть лажа
+        return TankY;
+    }
+
+
 
 
 }
