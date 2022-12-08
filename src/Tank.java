@@ -68,10 +68,11 @@ public class Tank extends GameObject {
         double s = Math.sin(Math.toRadians(angle));
         double c = Math.cos(Math.toRadians(angle));
         int[] TankY=new int[]{
-                (int)(y+w*0.5*s+h*0.5*c),
-                (int)(y-w*0.5*s+h*0.5*c),
+                (int)(y+w*0.5*s-h*0.5*c),
                 (int)(y-w*0.5*s-h*0.5*c),
-                (int)(y+w*0.5*s-h*0.5*c) };        // тут может быть лажа
+                (int)(y-w*0.5*s+h*0.5*c),
+                (int)(y+w*0.5*s+h*0.5*c),
+        };        // тут может быть лажа
         return TankY;
     }
 
