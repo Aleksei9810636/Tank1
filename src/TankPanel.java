@@ -56,9 +56,30 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
         g.fillOval(TankX[2]-5, TankY[2]-5, 10, 10);
         g.setColor(new Color(2, 19, 24));
         g.fillOval(TankX[3]-5, TankY[3]-5, 10, 10);
+        g.setColor(new Color(252, 252, 252));            // это центр
+        g.fillOval((int)(tank.x-1),(int) (tank.y-1), 2, 2);
         Polygon tank1=new Polygon(TankX, TankY, 4);
         if(tank1.intersects(wall.x, wall.y, wall.width, wall.height)){
+            g.setColor(new Color(73, 248, 10));
             g.fillRect(10, 10, 1200, 20);
+
+
+            if((tank.x> wall.x && tank.x<wall.x+ wall.width) && (tank.y< wall.y) ){
+                  tank.y-=Math.abs(tank.vy)+1;
+            }
+
+            if((tank.x> wall.x && tank.x<wall.x+ wall.width) && (tank.y> wall.y+ wall.height) ){
+                tank.y+=Math.abs(tank.vy)+1;
+            }
+
+            if((tank.y> wall.y && tank.y<wall.y+ wall.height) && (tank.x< wall.x) ){
+                tank.x-=Math.abs(tank.vy)+1;
+            }
+            if((tank.y> wall.y && tank.y<wall.y+ wall.height) && (tank.x> wall.x+wall.width) ){
+                tank.x+=Math.abs(tank.vy)+1;
+            }
+
+            g.setColor(new Color(246, 252, 69));
         }
 
 

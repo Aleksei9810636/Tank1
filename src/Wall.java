@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.util.Timer;
 
 public class Wall {
     double x;
@@ -20,4 +21,5 @@ public class Wall {
         g.setColor(new Color(146, 231, 252));
         g.fillRect((int)x, (int)y, (int) width, (int) height);
     }
+
 }
