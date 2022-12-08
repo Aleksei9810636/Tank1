@@ -46,7 +46,7 @@ public class GameObject {
             int h = img.getHeight();
             int newW = (int) Math.floor(w*cos + h*sin);
             int newH = (int) Math.floor(h*cos + w*sin);
-            BufferedImage rotated = new BufferedImage(newW, newH, BufferedImage.TYPE_3BYTE_BGR);
+            BufferedImage rotated = new BufferedImage(newW, newH, BufferedImage.TYPE_4BYTE_ABGR);
             Graphics2D g = rotated.createGraphics();
 //        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 //        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);

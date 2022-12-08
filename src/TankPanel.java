@@ -45,12 +45,20 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
         return false;
     }
 
-    public void updateCollisions(){
+    public void updateCollisions(Graphics g){
         int[] TankX=tank.getTankX();
         int[] TankY=tank.getTankY();
+        g.setColor(new Color(198, 205, 215));
+        g.fillOval(TankX[0]-5, TankY[0]-5, 10, 10);
+        g.setColor(new Color(113, 166, 176));
+        g.fillOval(TankX[1]-5, TankY[1]-5, 10, 10);
+        g.setColor(new Color(44, 121, 121));
+        g.fillOval(TankX[2]-5, TankY[2]-5, 10, 10);
+        g.setColor(new Color(2, 19, 24));
+        g.fillOval(TankX[3]-5, TankY[3]-5, 10, 10);
         Polygon tank1=new Polygon(TankX, TankY, 4);
         if(tank1.intersects(wall.x, wall.y, wall.width, wall.height)){
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            g.fillRect(10, 10, 1200, 20);
         }
 
 
@@ -66,7 +74,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
         tank.paint(g);
         wall.paint(g);
         gun.paint(g);
-        updateCollisions();
+        updateCollisions(g);
     }
 
 

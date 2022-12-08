@@ -17,7 +17,7 @@ public class Wall {
     }
 
     public void paint(Graphics g) {
-        g.setColor(new Color(128, 162, 255));
+        g.setColor(new Color(146, 231, 252));
         g.fillRect((int)x, (int)y, (int) width, (int) height);
     }
 }

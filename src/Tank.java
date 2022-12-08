@@ -1,9 +1,4 @@
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.io.File;
+
 import java.io.IOException;
 
 public class Tank extends GameObject {
@@ -56,17 +51,27 @@ public class Tank extends GameObject {
     }
 
     public int[] getTankX() {
-        int[] TankX=new int[]{(int)(x+image.getWidth()*0.5*Math.cos(angle)+image.getHeight()*0.5*Math.sin(angle)),
-                (int)(x-image.getWidth()*0.5*Math.cos(angle)+image.getHeight()*0.5*Math.sin(angle)),
-                (int)(x-image.getWidth()*0.5*Math.cos(angle)-image.getHeight()*0.5*Math.sin(angle)),
-                (int)(x+image.getWidth()*0.5*Math.cos(angle)-image.getHeight()*0.5*Math.sin(angle)) };
+        int w = image.getWidth();
+        int h = image.getWidth();
+        double s = Math.sin(Math.toRadians(angle));
+        double c = Math.cos(Math.toRadians(angle));
+        int[] TankX=new int[]{
+                (int)(x+w*0.5*c+h*0.5*s),
+                (int)(x-w*0.5*c+h*0.5*s),
+                (int)(x-w*0.5*c-h*0.5*s),
+                (int)(x+w*0.5*c-h*0.5*s) };
         return TankX;
     }
     public int[] getTankY() {
-        int[] TankY=new int[]{(int)(y+image.getWidth()*0.5*Math.sin(angle)+image.getHeight()*0.5*Math.cos(angle)),
-                (int)(y-image.getWidth()*0.5*Math.sin(angle)+image.getHeight()*0.5*Math.cos(angle)),
-                (int)(y-image.getWidth()*0.5*Math.sin(angle)-image.getHeight()*0.5*Math.cos(angle)),
-                (int)(y-image.getWidth()*0.5*Math.sin(angle)-image.getHeight()*0.5*Math.cos(angle)) };        // тут может быть лажа
+        int w = image.getWidth();
+        int h = image.getWidth();
+        double s = Math.sin(Math.toRadians(angle));
+        double c = Math.cos(Math.toRadians(angle));
+        int[] TankY=new int[]{
+                (int)(y+w*0.5*s+h*0.5*c),
+                (int)(y-w*0.5*s+h*0.5*c),
+                (int)(y-w*0.5*s-h*0.5*c),
+                (int)(y+w*0.5*s-h*0.5*c) };        // тут может быть лажа
         return TankY;
     }
 
