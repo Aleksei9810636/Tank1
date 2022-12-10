@@ -6,10 +6,10 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        GameObject gameObject=new GameObject(500,500, 1,  0.5);
+        GameObject gameObject=new GameObject(500,500, 0.00000001,  0.5);
         Tank tank1=new Tank(750,300, 1,  0.05);
         Wall wall=new Wall(700, 400, 200, 25);
-        Gun gun=new Gun(500, 500, 1, 0.002);
+        Gun gun=new Gun(500, 500, 1, 0.05);
 
         // Создаем окно
         JFrame frame = new JFrame();

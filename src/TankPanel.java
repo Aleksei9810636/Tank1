@@ -19,27 +19,37 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
     public boolean dispatchKeyEvent(KeyEvent e) {
 
         if (e.getID() == KeyEvent.KEY_PRESSED) {
-            if (e.getKeyChar() == 'w')
+            if (e.getKeyChar() == 'w') {
                 tank.typeOfEventW = true;
-            if(e.getKeyChar() == 'a')
+                gun.typeOfEventW = true;
+            }
+            if(e.getKeyChar() == 'a') {
                 tank.typeOfEventA = true;
-            if(e.getKeyChar() == 's')
+                gun.typeOfEventA = true;
+            }
+            if(e.getKeyChar() == 's') {
                 tank.typeOfEventS = true;
+                gun.typeOfEventS = true;
+            }
             if(e.getKeyChar() == 'd')
                 tank.typeOfEventD = true;
         }
         if(e.getID() == KeyEvent.KEY_RELEASED){
             if (e.getKeyChar() == 'w'){
                 tank.typeOfEventW = false;
+                gun.typeOfEventW = false;
             }
             if (e.getKeyChar() == 'a'){
                 tank.typeOfEventA = false;
+                gun.typeOfEventA = false;
             }
             if (e.getKeyChar() == 's'){
                 tank.typeOfEventS = false;
+                gun.typeOfEventS = false;
             }
             if (e.getKeyChar() == 'd'){
                 tank.typeOfEventD = false;
+                gun.typeOfEventD = false;
             }
         }
         return false;
@@ -59,10 +69,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
         g.setColor(new Color(252, 252, 252));            // это центр
         g.fillOval((int)(tank.x-1),(int) (tank.y-1), 2, 2);
         Polygon tank1=new Polygon(TankX, TankY, 4);
-        if(tank1.intersects(wall.x, wall.y, wall.width, wall.height)){
-            g.setColor(new Color(73, 248, 10));
-            g.fillRect(10, 10, 1200, 20);
-
+        if(tank1.intersects(wall.x, wall.y, wall.width, wall.height)){        //если пересекаются..
 
             if((tank.x> wall.x && tank.x<wall.x+ wall.width) && (tank.y< wall.y) ){
                   tank.y-=Math.abs(tank.vy)+1;
@@ -78,8 +85,8 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
             if((tank.y> wall.y && tank.y<wall.y+ wall.height) && (tank.x> wall.x+wall.width) ){
                 tank.x+=Math.abs(tank.vy)+1;
             }
-
-            g.setColor(new Color(246, 252, 69));
+            g.setColor(new Color(73, 248, 10));
+            g.fillRect(10, 10, 1200, 20);
         }
 
 
@@ -89,13 +96,13 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        updateCollisions(g);
         tank.UpdatePlace();
         gun.UpdatePlace();
 
         tank.paint(g);
         wall.paint(g);
         gun.paint(g);
-        updateCollisions(g);
     }
 
 

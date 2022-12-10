@@ -7,6 +7,7 @@ public class Tank extends GameObject {
     public Tank(double x, double y, double VMax, double a) throws IOException {
         super(x, y, VMax, a);
     }
+
                  // если что х и у это координаты центра танка
 
     public void UpdatePlace() {
@@ -14,7 +15,6 @@ public class Tank extends GameObject {
         x += vy * Math.sin(angleInRadians);
         y -= vy * Math.cos(angleInRadians);
         angle += VAngle * 1;
-
         if (typeOfEventW != typeOfEventS) {
             if ((Math.abs(vy)) < VMax) {
                 if (typeOfEventW) {
