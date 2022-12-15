@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
-public class TankPanel extends JPanel implements KeyEventDispatcher  {
+public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListener  {
     Tank tank;
     Wall wall;
     Gun gun;
@@ -12,6 +14,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
         this.tank=tank;
         this.wall=wall;
         this.gun=gun;
+        addMouseListener(this);
 
     }
 
@@ -58,6 +61,8 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
     public void updateCollisions(Graphics g){
         int[] TankX=tank.getTankX();
         int[] TankY=tank.getTankY();
+
+
         g.setColor(new Color(198, 205, 215));
         g.fillOval(TankX[0]-5, TankY[0]-5, 10, 10);
         g.setColor(new Color(113, 166, 176));
@@ -68,6 +73,8 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
         g.fillOval(TankX[3]-5, TankY[3]-5, 10, 10);
         g.setColor(new Color(252, 252, 252));            // это центр
         g.fillOval((int)(tank.x-1),(int) (tank.y-1), 2, 2);
+
+
         Polygon tank1=new Polygon(TankX, TankY, 4);
         if(tank1.intersects(wall.x, wall.y, wall.width, wall.height)){        //если пересекаются..
 
@@ -88,9 +95,6 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
             g.setColor(new Color(73, 248, 10));
             g.fillRect(10, 10, 1200, 20);
         }
-
-
-
     }
 
     @Override
@@ -98,14 +102,34 @@ public class TankPanel extends JPanel implements KeyEventDispatcher  {
         super.paintComponent(g);
         updateCollisions(g);
         tank.UpdatePlace();
-        gun.UpdatePlace();
 
         tank.paint(g);
         wall.paint(g);
-        gun.paint(g);
+        gun.paint(g, tank.x, tank.y);
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {              // на отпускание
+        System.out.println("mouseClicked");
+    }
 
+    @Override
+    public void mousePressed(MouseEvent e) {               //на нажатие
+        System.out.println("mousePressed");
+    }
 
+    @Override
+    public void mouseReleased(MouseEvent e) {              // хз что но похоже на отпускание
+       System.out.println("mouseReleased");
+    }
 
+    @Override
+    public void mouseEntered(MouseEvent e) {                //видимо когда наводим на панель
+        System.out.println("mouseEntered");
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {                 //видимо конда уводим с панели
+        System.out.println("mouseExited");
+    }
 }
