@@ -3,19 +3,62 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.IOException;
-public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListener  {
+public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListener, MouseMotionListener {
     Tank tank;
     Wall wall;
     Gun gun;
     boolean Push;
+    double MouseX;
+    double MouseY;
 
     public TankPanel(Tank tank, Wall wall, Gun gun) throws IOException {       //Это вероятно не надо
         this.tank=tank;
         this.wall=wall;
         this.gun=gun;
         addMouseListener(this);
+        addMouseMotionListener(this);
 
+    }
+    //  Далее управление клавиатурой и мышкой
+
+
+
+
+    @Override
+    public void mouseClicked(MouseEvent e) {              // на отпускание
+//        System.out.println("mouseClicked");
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {               //на нажатие
+//        System.out.println("mousePressed");
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {              // хз что но похоже на отпускание
+//       System.out.println("mouseReleased");
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {                //видимо когда наводим на панель
+        //       System.out.println("mouseEntered");
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {                 //видимо конда уводим с панели
+//        System.out.println("mouseExited");
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {           //движется и зажата
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {             // движется и не зажата
+        MouseX=e.getX();
+        MouseY=e.getY();
     }
 
     @Override
@@ -24,15 +67,15 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         if (e.getID() == KeyEvent.KEY_PRESSED) {
             if (e.getKeyChar() == 'w') {
                 tank.typeOfEventW = true;
-                gun.typeOfEventW = true;
+//                gun.typeOfEventW = true;
             }
             if(e.getKeyChar() == 'a') {
                 tank.typeOfEventA = true;
-                gun.typeOfEventA = true;
+//                gun.typeOfEventA = true;
             }
             if(e.getKeyChar() == 's') {
                 tank.typeOfEventS = true;
-                gun.typeOfEventS = true;
+//                gun.typeOfEventS = true;
             }
             if(e.getKeyChar() == 'd')
                 tank.typeOfEventD = true;
@@ -40,23 +83,30 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         if(e.getID() == KeyEvent.KEY_RELEASED){
             if (e.getKeyChar() == 'w'){
                 tank.typeOfEventW = false;
-                gun.typeOfEventW = false;
+    //            gun.typeOfEventW = false;
             }
             if (e.getKeyChar() == 'a'){
                 tank.typeOfEventA = false;
-                gun.typeOfEventA = false;
+ //               gun.typeOfEventA = false;
             }
             if (e.getKeyChar() == 's'){
                 tank.typeOfEventS = false;
-                gun.typeOfEventS = false;
+ //               gun.typeOfEventS = false;
             }
             if (e.getKeyChar() == 'd'){
                 tank.typeOfEventD = false;
-                gun.typeOfEventD = false;
+   //             gun.typeOfEventD = false;
             }
         }
         return false;
     }
+
+
+
+
+
+
+
 
     public void updateCollisions(Graphics g){
         int[] TankX=tank.getTankX();
@@ -92,44 +142,35 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
             if((tank.y> wall.y && tank.y<wall.y+ wall.height) && (tank.x> wall.x+wall.width) ){
                 tank.x+=Math.abs(tank.vy)+1;
             }
-            g.setColor(new Color(73, 248, 10));
+            g.setColor(new Color(55, 250, 31, 255));
             g.fillRect(10, 10, 1200, 20);
         }
+    }
+    public void GunAngle(){
+        double Angle1=MouseX- tank.x;
+        double Angle2=tank.y-MouseY;
+        double angle=90-Math.toDegrees(Math.atan2(Angle2, Angle1));
+        if(angle<0){
+            gun.MouseAngle=360+angle;
+        } else {
+            gun.MouseAngle = angle;
+        }
+
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         updateCollisions(g);
+        GunAngle();
         tank.UpdatePlace();
+        gun.UpdatePlace();
 
         tank.paint(g);
         wall.paint(g);
         gun.paint(g, tank.x, tank.y);
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {              // на отпускание
-        System.out.println("mouseClicked");
-    }
 
-    @Override
-    public void mousePressed(MouseEvent e) {               //на нажатие
-        System.out.println("mousePressed");
-    }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {              // хз что но похоже на отпускание
-       System.out.println("mouseReleased");
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {                //видимо когда наводим на панель
-        System.out.println("mouseEntered");
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {                 //видимо конда уводим с панели
-        System.out.println("mouseExited");
-    }
 }

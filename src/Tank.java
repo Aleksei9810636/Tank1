@@ -1,12 +1,40 @@
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 public class Tank extends GameObject {
+    double x;
+    double y;
+    double VAngle;
+    double vy;
+    double VMax;
+    double a;
+    double angle=0.0;
 
+    BufferedImage image= ImageIO.read(new File("imgs\\Tank1.jpg"));
+    boolean typeOfEventW;
+    boolean typeOfEventA;
+    boolean typeOfEventS;
+    boolean typeOfEventD;
 
-    public Tank(double x, double y, double VMax, double a) throws IOException {
-        super(x, y, VMax, a);
+    public void paint(Graphics g) {
+        BufferedImage img=rotateImage(image, angle);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.drawImage(img, (int) (x-img.getWidth()*0.5), (int) (y-img.getHeight()*0.5), null);
     }
+    public Tank(double x, double y, double VMax, double a) throws IOException {
+        this.x = x;
+        this.y = y;
+        this.VAngle=0;
+        this.vy=0;
+        this.VMax = VMax;
+        this.a = a;
+
+    }
+
 
                  // если что х и у это координаты центра танка
 

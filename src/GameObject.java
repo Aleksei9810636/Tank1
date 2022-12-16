@@ -5,38 +5,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class GameObject {
-
-        double x;
-        double y;
-        double VAngle;
-        double vy;
-        double VMax;
-        double a;
-        boolean typeOfEventW;
-        boolean typeOfEventA;
-        boolean typeOfEventS;
-        boolean typeOfEventD;
-        BufferedImage image= ImageIO.read(new File("imgs\\Tank1.jpg"));
-        double angle=0.0;
-        BufferedImage img= ImageIO.read(new File("imgs\\Tank1.jpg"));
-
-
-        public GameObject(double x, double y, double VMax, double a) throws IOException {
-            this.x = x;
-            this.y = y;
-            this.VAngle=0;
-            this.vy=0;
-            this.VMax = VMax;
-            this.a = a;
-
-        }
-
-        public void paint(Graphics g) {
-            BufferedImage img=rotateImage(image, angle);
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.drawImage(img, (int) (x-img.getWidth()*0.5), (int) (y-img.getHeight()*0.5), null);
-        }
-
         public static BufferedImage rotateImage(BufferedImage img, double angle) {
             double sin = Math.abs(Math.sin(Math.toRadians(angle))),
                     cos = Math.abs(Math.cos(Math.toRadians(angle)));
