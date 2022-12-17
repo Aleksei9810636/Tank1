@@ -9,7 +9,7 @@ public class Main {
         GameObject gameObject=new GameObject();
         Tank tank1=new Tank(750,300, 1,  0.05);
         Wall wall=new Wall(700, 400, 200, 25);
-        Gun gun=new Gun(0.25);
+        Gun gun=new Gun(0.2);
 
         // Создаем окно
         JFrame frame = new JFrame();

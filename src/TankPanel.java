@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+
 public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListener, MouseMotionListener {
     Tank tank;
     Wall wall;
@@ -12,6 +14,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
     boolean Push;
     double MouseX;
     double MouseY;
+    Bullet bullet;
 
     public TankPanel(Tank tank, Wall wall, Gun gun) throws IOException {       //Это вероятно не надо
         this.tank=tank;
@@ -19,8 +22,9 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         this.gun=gun;
         addMouseListener(this);
         addMouseMotionListener(this);
-
+        bullet =new Bullet(tank.x, tank.y);
     }
+
     //  Далее управление клавиатурой и мышкой
 
 
@@ -34,6 +38,8 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
     @Override
     public void mousePressed(MouseEvent e) {               //на нажатие
 //        System.out.println("mousePressed");
+        bullet.i=1;
+
     }
 
     @Override
@@ -67,15 +73,12 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         if (e.getID() == KeyEvent.KEY_PRESSED) {
             if (e.getKeyChar() == 'w') {
                 tank.typeOfEventW = true;
-//                gun.typeOfEventW = true;
             }
             if(e.getKeyChar() == 'a') {
                 tank.typeOfEventA = true;
-//                gun.typeOfEventA = true;
             }
             if(e.getKeyChar() == 's') {
                 tank.typeOfEventS = true;
-//                gun.typeOfEventS = true;
             }
             if(e.getKeyChar() == 'd')
                 tank.typeOfEventD = true;
@@ -83,19 +86,15 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         if(e.getID() == KeyEvent.KEY_RELEASED){
             if (e.getKeyChar() == 'w'){
                 tank.typeOfEventW = false;
-    //            gun.typeOfEventW = false;
             }
             if (e.getKeyChar() == 'a'){
                 tank.typeOfEventA = false;
- //               gun.typeOfEventA = false;
             }
             if (e.getKeyChar() == 's'){
                 tank.typeOfEventS = false;
- //               gun.typeOfEventS = false;
             }
             if (e.getKeyChar() == 'd'){
                 tank.typeOfEventD = false;
-   //             gun.typeOfEventD = false;
             }
         }
         return false;
@@ -169,6 +168,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         tank.paint(g);
         wall.paint(g);
         gun.paint(g, tank.x, tank.y);
+        bullet.point(g);
     }
 
 

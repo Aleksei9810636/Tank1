@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Tank extends GameObject {
     double x;
@@ -13,6 +14,7 @@ public class Tank extends GameObject {
     double VMax;
     double a;
     double angle=0.0;
+
 
     BufferedImage image= ImageIO.read(new File("imgs\\Tank1.jpg"));
     boolean typeOfEventW;
