@@ -18,6 +18,7 @@ public class Gun extends  GameObject{
         g.drawImage(img, (int) (x-img.getWidth()*0.5), (int) (y-img.getHeight()*0.5), null);
     }
     public void UpdatePlace(){
+        System.out.println(Angle);
         if(MouseAngle>Angle){
             if(MouseAngle-Angle<=180){
                 Angle+=VAngle;
@@ -32,7 +33,7 @@ public class Gun extends  GameObject{
                 Angle+=VAngle;
             }
         }
-        if(Angle<0){ // эти два ифа добавлены в связи с багом. если изначально мышь слево, то происходито баг, а так все норм. Если что, можно просто сделать кнопку входа справо.
+        if(Angle<0){ // эти два ифа добавлены в связи с багом. если изначально мышь слево, то происходито баg
             Angle+=360;
         }
         if(Angle>360){

@@ -3,23 +3,27 @@ import java.awt.*;
 public class Bullet {
     double x;
     double y;
-    double v=8;
-    int i=0;
+    double Angle;
+    double v=0.05;
 
-    public Bullet(double x, double y) {
+    public Bullet(double x, double y, double GunAngle) {
         this.x = x;
         this.y = y;
+        this.Angle=GunAngle;
     }
 
-    public void point(Graphics g) {
-        if(i==1) {
-            g.setColor(new Color(55, 250, 31, 255));
-            g.fillRect((int) x, 100, 30, 10);
-            x += v;
-        }
-        if(x>1600){
-            i=0;
-            x=100;
-        }
+    public void paint(Graphics g) {
+        g.setColor(new Color(55, 250, 31, 255));
+        g.fillOval((int) x, (int) y, 10, 10);
     }
+    public boolean update() {
+        x+=v*Math.sin(Math.toRadians(Angle));
+        y-=v*Math.cos(Math.toRadians(Angle));
+        if(x<-10||x>3000||y<-10||y>2000){
+            return false;
+        }
+        return true;
+
+    }
+
 }

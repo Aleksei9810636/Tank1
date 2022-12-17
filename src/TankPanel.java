@@ -15,6 +15,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
     double MouseX;
     double MouseY;
     Bullet bullet;
+    ArrayList<Bullet> bullets= new ArrayList<>();
 
     public TankPanel(Tank tank, Wall wall, Gun gun) throws IOException {       //Это вероятно не надо
         this.tank=tank;
@@ -22,7 +23,6 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         this.gun=gun;
         addMouseListener(this);
         addMouseMotionListener(this);
-        bullet =new Bullet(tank.x, tank.y);
     }
 
     //  Далее управление клавиатурой и мышкой
@@ -38,7 +38,8 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
     @Override
     public void mousePressed(MouseEvent e) {               //на нажатие
 //        System.out.println("mousePressed");
-        bullet.i=1;
+        Bullet bullet=new Bullet(tank.x, tank.y, gun.Angle);
+        bullets.add(bullet);
 
     }
 
@@ -156,6 +157,13 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         }
 
     }
+    public void BulletList(Graphics g){
+        for(Bullet bullet : bullets){ //bullets.get(i) = bullet
+            bullet.paint(g);
+            bullet.update();
+        }
+
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -164,11 +172,12 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         GunAngle();
         tank.UpdatePlace();
         gun.UpdatePlace();
+        BulletList(g);
+
 
         tank.paint(g);
         wall.paint(g);
         gun.paint(g, tank.x, tank.y);
-        bullet.point(g);
     }
 
 
