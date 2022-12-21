@@ -11,7 +11,8 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
     Tank tank1;
     Tank tank2;
     Wall wall;
-    Gun gun;
+    Gun gun1;
+    Gun gun2;
     boolean Push;
     double MouseX;
     double MouseY;
@@ -21,7 +22,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
     public TankPanel(Tank tank1, Tank tank2, Wall wall, Gun gun) throws IOException {       //Это вероятно не надо
         this.tank1 = tank1;
         this.wall=wall;
-        this.gun=gun;
+        this.gun1 =gun;
         this.tank2 = tank2;
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -40,7 +41,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
     @Override
     public void mousePressed(MouseEvent e) {               //на нажатие
 //        System.out.println("mousePressed");
-        Bullet bullet=new Bullet(tank1.x, tank1.y, gun.Angle);
+        Bullet bullet=new Bullet(tank1.x, tank1.y, gun1.Angle, 1);
         bullets.add(bullet);
 
     }
@@ -72,6 +73,10 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent e) {
+//        if (e.getID() == KeyEvent.KEY_PRESSED) {
+//            Bullet bullet=new Bullet(tank2.x, tank2.y, gun2.Angle);                     /////////////
+//            bullets.add(bullet);
+//        }
 
         if (e.getID() == KeyEvent.KEY_PRESSED) {
             if (e.getKeyChar() == 'w') {
@@ -136,23 +141,27 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
 
 
     public void updateCollisions(Graphics g){
-        int[] TankX= tank1.getTankX();
-        int[] TankY= tank1.getTankY();
+        int[] Tank1X= tank1.getTankX();
+        int[] Tank1Y= tank1.getTankY();
+
+        int[] Tank2X= tank2.getTankX();
+        int[] Tank2Y= tank2.getTankY();
+
 
 
         g.setColor(new Color(198, 205, 215));
-        g.fillOval(TankX[0]-5, TankY[0]-5, 10, 10);
+        g.fillOval(Tank1X[0]-5, Tank1Y[0]-5, 10, 10);
         g.setColor(new Color(113, 166, 176));
-        g.fillOval(TankX[1]-5, TankY[1]-5, 10, 10);
+        g.fillOval(Tank1X[1]-5, Tank1Y[1]-5, 10, 10);
         g.setColor(new Color(44, 121, 121));
-        g.fillOval(TankX[2]-5, TankY[2]-5, 10, 10);
+        g.fillOval(Tank1X[2]-5, Tank1Y[2]-5, 10, 10);
         g.setColor(new Color(2, 19, 24));
-        g.fillOval(TankX[3]-5, TankY[3]-5, 10, 10);
+        g.fillOval(Tank1X[3]-5, Tank1Y[3]-5, 10, 10);
         g.setColor(new Color(252, 252, 252));            // это центр
         g.fillOval((int)(tank1.x-1),(int) (tank1.y-1), 2, 2);
 
 
-        Polygon tank1=new Polygon(TankX, TankY, 4);
+        Polygon tank1=new Polygon(Tank1X, Tank1Y, 4);
         if(tank1.intersects(wall.x, wall.y, wall.width, wall.height)){        //если пересекаются..
 
             if((this.tank1.x> wall.x && this.tank1.x<wall.x+ wall.width) && (this.tank1.y< wall.y) ){
@@ -173,14 +182,14 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
             g.fillRect(10, 10, 1200, 20);
         }
     }
-    public void GunAngle(){
+    public void GunAngle(){                                             ////// not tank2
         double Angle1=MouseX- tank1.x;
         double Angle2= tank1.y-MouseY;
         double angle=90-Math.toDegrees(Math.atan2(Angle2, Angle1));
         if(angle<0){
-            gun.MouseAngle=360+angle;
+            gun1.MouseAngle=360+angle;
         } else {
-            gun.MouseAngle = angle;
+            gun1.MouseAngle = angle;
         }
 
     }
@@ -192,12 +201,20 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
 
     }
     public void HitCheck() {
-        int[] TankX = tank1.getTankX();
-        int[] TankY = tank1.getTankY();
-        Polygon tank1 = new Polygon(TankX, TankY, 4);
+        int[] Tank1X = tank1.getTankX();
+        int[] Tank1Y = tank1.getTankY();
+        int[] Tank2X = tank2.getTankX();
+        int[] Tank2Y = tank2.getTankY();
+        Polygon tank2 = new Polygon(Tank2X, Tank2Y, 4);
+        Polygon tank1 = new Polygon(Tank1X, Tank1Y, 4);
+
+
         for (int i = 0; i < bullets.size(); i++) {
-            if (tank1.intersects(bullets.get(i).x, bullets.get(i).y, 10, 10)) {                   // отстойненько т.к. размер пули не читается
+            if (tank1.intersects(bullets.get(i).x, bullets.get(i).y, 10, 10) && bullets.get(i).IndicationTank == 2) {                   // отстойненько т.к. размер пули не читается
                 this.tank1.HitPoints -= bullets.get(i).Damage;
+            }
+            if (tank2.intersects(bullets.get(i).x, bullets.get(i).y, 10, 10) && bullets.get(i).IndicationTank == 1) {                   // отстойненько т.к. размер пули не читается
+                this.tank2.HitPoints -= bullets.get(i).Damage;
             }
         }
     }
@@ -210,7 +227,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         tank1.UpdatePlace();
         tank2.UpdatePlace();          ///
 
-        gun.UpdatePlace();
+        gun1.UpdatePlace();
         BulletList(g);
         HitCheck();
 
@@ -219,7 +236,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         tank2.paint(g);                    ///
 
         wall.paint(g);
-        gun.paint(g, tank1.x, tank1.y);
+        gun1.paint(g, tank1.x, tank1.y);
     }
 
 

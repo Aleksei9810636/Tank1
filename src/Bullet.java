@@ -5,12 +5,14 @@ public class Bullet {
     double y;
     double Angle;
     double v=8;
-    double Damage=10;
+    double Damage=2;
+    int IndicationTank;
 
-    public Bullet(double x, double y, double GunAngle) {
+    public Bullet(double x, double y, double GunAngle, int IndicationTank) {
         this.x = x;
         this.y = y;
         this.Angle=GunAngle;
+        this.IndicationTank=IndicationTank; // какой танк выстрелил
     }
 
     public void paint(Graphics g) {
