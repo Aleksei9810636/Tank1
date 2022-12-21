@@ -12,18 +12,19 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
     Tank tank2;
     Wall wall;
     Gun gun1;
-    Gun gun2;
+    KeyBoardGun keyBoardGun;
     boolean Push;
     double MouseX;
     double MouseY;
     Bullet bullet;
     ArrayList<Bullet> bullets= new ArrayList<>();
 
-    public TankPanel(Tank tank1, Tank tank2, Wall wall, Gun gun) throws IOException {       //Это вероятно не надо
+    public TankPanel(Tank tank1, Tank tank2, Wall wall, Gun gun, KeyBoardGun keyBoardGun ) throws IOException {       //Это вероятно не надо
         this.tank1 = tank1;
         this.wall=wall;
         this.gun1 =gun;
         this.tank2 = tank2;
+        this.keyBoardGun=keyBoardGun;
         addMouseListener(this);
         addMouseMotionListener(this);
     }
@@ -73,10 +74,27 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent e) {
-//        if (e.getID() == KeyEvent.KEY_PRESSED) {
-//            Bullet bullet=new Bullet(tank2.x, tank2.y, gun2.Angle);                     /////////////
-//            bullets.add(bullet);
-//        }
+        if (e.getID() == KeyEvent.KEY_PRESSED) {
+            System.out.println(e.getKeyCode());
+            if (e.getKeyCode() == 39) {
+                Bullet bullet=new Bullet(tank2.x, tank2.y, keyBoardGun.Angle, 2);
+                bullets.add(bullet);
+            }
+            if (e.getKeyCode() == 100) {
+                keyBoardGun.typeOfEvent4 = true;
+            }
+            if (e.getKeyCode() == 102) {
+                keyBoardGun.typeOfEvent6 = true;
+            }
+        }
+        if(e.getID() == KeyEvent.KEY_RELEASED){
+            if (e.getKeyCode() == 100) {
+                keyBoardGun.typeOfEvent4 = false;
+            }
+            if (e.getKeyCode() == 102) {
+                keyBoardGun.typeOfEvent6 = false;
+            }
+        }
 
         if (e.getID() == KeyEvent.KEY_PRESSED) {
             if (e.getKeyChar() == 'w') {
@@ -228,6 +246,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         tank2.UpdatePlace();          ///
 
         gun1.UpdatePlace();
+        keyBoardGun.UpdatePlace();
         BulletList(g);
         HitCheck();
 
@@ -237,6 +256,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
 
         wall.paint(g);
         gun1.paint(g, tank1.x, tank1.y);
+        keyBoardGun.paint(g, tank2.x, tank2.y);
     }
 
 

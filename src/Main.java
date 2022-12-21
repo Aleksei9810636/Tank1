@@ -10,10 +10,11 @@ public class Main {
         Tank tank2=new Tank(100, 100, 1, 0.05, 900, 1000);
         Wall wall=new Wall(700, 400, 200, 25);
         Gun gun=new Gun(0.2);
+        KeyBoardGun keyBoardGun=new KeyBoardGun(0.2);
 
         // Создаем окно
         JFrame frame = new JFrame();
-        TankPanel tankPanel=new TankPanel(tank1, tank2, wall, gun);
+        TankPanel tankPanel=new TankPanel(tank1, tank2, wall, gun, keyBoardGun);
         frame.add(tankPanel);        // добавляем в окно панель
         frame.setSize(2000, 1000);
         frame.setVisible(true);

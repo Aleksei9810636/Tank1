@@ -35,6 +35,7 @@ public class Tank extends GameObject {
         if(HitPoints<=0){
             g.setColor(new Color(0, 224, 205));
             g.fillRect(0,0,2000,2000);
+
         }
     }
     public Tank(double x, double y, double VMax, double a, double HitPoints, double laja) throws IOException {
