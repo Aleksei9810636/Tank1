@@ -18,7 +18,6 @@ public class Gun extends  GameObject{
         g.drawImage(img, (int) (x-img.getWidth()*0.5), (int) (y-img.getHeight()*0.5), null);
     }
     public void UpdatePlace(){
-        System.out.println(Angle);
         if(MouseAngle>Angle){
             if(MouseAngle-Angle<=180){
                 Angle+=VAngle;

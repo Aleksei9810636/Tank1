@@ -4,7 +4,8 @@ public class Bullet {
     double x;
     double y;
     double Angle;
-    double v=0.05;
+    double v=8;
+    double Damage=10;
 
     public Bullet(double x, double y, double GunAngle) {
         this.x = x;

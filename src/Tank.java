@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 public class Tank extends GameObject {
     double x;
@@ -14,6 +14,7 @@ public class Tank extends GameObject {
     double VMax;
     double a;
     double angle=0.0;
+    double HitPoints;
 
 
     BufferedImage image= ImageIO.read(new File("imgs\\Tank1.jpg"));
@@ -26,14 +27,19 @@ public class Tank extends GameObject {
         BufferedImage img=rotateImage(image, angle);
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(img, (int) (x-img.getWidth()*0.5), (int) (y-img.getHeight()*0.5), null);
+        g.setColor(new Color(75, 68, 68));
+        g.drawRect(50, 900, 1000, 10);
+        g.setColor(new Color(238, 12, 12));
+        g.fillRect(50, 900,(int) HitPoints, 10);
     }
-    public Tank(double x, double y, double VMax, double a) throws IOException {
+    public Tank(double x, double y, double VMax, double a, double HitPoints) throws IOException {
         this.x = x;
         this.y = y;
         this.VAngle=0;
         this.vy=0;
         this.VMax = VMax;
         this.a = a;
+        this.HitPoints=HitPoints;
 
     }
 
