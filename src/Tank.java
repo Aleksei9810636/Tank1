@@ -15,6 +15,7 @@ public class Tank extends GameObject {
     double a;
     double angle=0.0;
     double HitPoints;
+    double HitPointsMax;
     double laja;
 
 
@@ -32,6 +33,7 @@ public class Tank extends GameObject {
         g.drawRect( (int)laja, 900, 900, 10);
         g.setColor(new Color(238, 12, 12));
         g.fillRect( (int)laja, 900,(int) HitPoints, 10);
+        g.drawString((HitPoints+"/"+HitPointsMax), (int)(laja+400), 930);
         if(HitPoints<=0){
             g.setColor(new Color(0, 224, 205));
             g.fillRect(0,0,2000,2000);
@@ -47,6 +49,7 @@ public class Tank extends GameObject {
         this.a = a;
         this.HitPoints=HitPoints;
         this.laja=laja;
+        HitPointsMax=HitPoints;
 
     }
 

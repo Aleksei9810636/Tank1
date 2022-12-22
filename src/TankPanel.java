@@ -230,9 +230,11 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         for (int i = 0; i < bullets.size(); i++) {
             if (tank1.intersects(bullets.get(i).x, bullets.get(i).y, 10, 10) && bullets.get(i).IndicationTank == 2) {                   // отстойненько т.к. размер пули не читается
                 this.tank1.HitPoints -= bullets.get(i).Damage;
+                bullets.remove(i);
             }
             if (tank2.intersects(bullets.get(i).x, bullets.get(i).y, 10, 10) && bullets.get(i).IndicationTank == 1) {                   // отстойненько т.к. размер пули не читается
                 this.tank2.HitPoints -= bullets.get(i).Damage;
+                bullets.remove(i);
             }
         }
     }
