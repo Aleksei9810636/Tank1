@@ -18,6 +18,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
     double MouseY;
     Bullet bullet;
     ArrayList<Bullet> bullets= new ArrayList<>();
+    long time;
 
     public TankPanel(Tank tank1, Tank tank2, Wall wall, Gun gun, KeyBoardGun keyBoardGun ) throws IOException {       //Это вероятно не надо
         this.tank1 = tank1;
@@ -42,6 +43,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
     @Override
     public void mousePressed(MouseEvent e) {               //на нажатие
 //        System.out.println("mousePressed");
+
         Bullet bullet=new Bullet(tank1.x, tank1.y, gun1.Angle, 1);
         bullets.add(bullet);
 
@@ -75,7 +77,7 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
     @Override
     public boolean dispatchKeyEvent(KeyEvent e) {
         if (e.getID() == KeyEvent.KEY_PRESSED) {
-            System.out.println(e.getKeyCode());
+//            System.out.println(e.getKeyCode());
             if (e.getKeyCode() == 39) {
                 Bullet bullet=new Bullet(tank2.x, tank2.y, keyBoardGun.Angle, 2);
                 bullets.add(bullet);
@@ -225,14 +227,14 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         int[] Tank2Y = tank2.getTankY();
         Polygon tank2 = new Polygon(Tank2X, Tank2Y, 4);
         Polygon tank1 = new Polygon(Tank1X, Tank1Y, 4);
-
-
         for (int i = 0; i < bullets.size(); i++) {
             if (tank1.intersects(bullets.get(i).x, bullets.get(i).y, 10, 10) && bullets.get(i).IndicationTank == 2) {                   // отстойненько т.к. размер пули не читается
                 this.tank1.HitPoints -= bullets.get(i).Damage;
+                bullets.remove(i);
             }
             if (tank2.intersects(bullets.get(i).x, bullets.get(i).y, 10, 10) && bullets.get(i).IndicationTank == 1) {                   // отстойненько т.к. размер пули не читается
                 this.tank2.HitPoints -= bullets.get(i).Damage;
+                bullets.remove(i);
             }
         }
     }

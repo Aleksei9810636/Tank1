@@ -8,6 +8,7 @@ public class Gun extends  GameObject{
     double VAngle;
     double Angle;
     double MouseAngle;
+    double TankVAngle;
     BufferedImage image= ImageIO.read(new File("imgs\\gun.png"));
     public Gun(double VAngle) throws IOException {
         this.VAngle=VAngle;
@@ -32,6 +33,7 @@ public class Gun extends  GameObject{
                 Angle+=VAngle;
             }
         }
+        Angle+=TankVAngle;
         if(Angle<0){ // эти два ифа добавлены в связи с багом. если изначально мышь слево, то происходито баg
             Angle+=360;
         }
