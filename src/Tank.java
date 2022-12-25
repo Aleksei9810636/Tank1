@@ -58,7 +58,7 @@ public class Tank extends GameObject {
     }
 
 
-                 // если что х и у это координаты центра танка
+    // если что х и у это координаты центра танка
 
     public void UpdatePlace() {
         Recharge();
