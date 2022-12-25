@@ -17,17 +17,26 @@ public class Tank extends GameObject {
     double HitPoints;
     double HitPointsMax;
     double laja;
-    long time;
     double RechargeTime;
-    double LastShotTime=-1000;
-
-
+    long LastShotTime=0;
     BufferedImage image= ImageIO.read(new File("imgs\\Tank1.jpg"));
     boolean typeOfEventW;
     boolean typeOfEventA;
     boolean typeOfEventS;
     boolean typeOfEventD;
+    public Tank(double x, double y, double VMax, double a, double HitPoints, double laja, double RechargeTime) throws IOException {
+        this.x = x;
+        this.y = y;
+        this.VAngle=0;
+        this.vy=0;
+        this.VMax = VMax;
+        this.a = a;
+        this.HitPoints=HitPoints;
+        this.laja=laja;
+        this.RechargeTime=RechargeTime;
+        HitPointsMax=HitPoints;
 
+    }
     public void paint(Graphics g) {
         BufferedImage img=rotateImage(image, angle);
         Graphics2D g2d = (Graphics2D) g;
@@ -42,26 +51,23 @@ public class Tank extends GameObject {
             g.fillRect(0,0,2000,2000);
 
         }
-    }
-    public Tank(double x, double y, double VMax, double a, double HitPoints, double laja, double RechargeTime) throws IOException {
-        this.x = x;
-        this.y = y;
-        this.VAngle=0;
-        this.vy=0;
-        this.VMax = VMax;
-        this.a = a;
-        this.HitPoints=HitPoints;
-        this.laja=laja;
-        this.RechargeTime=RechargeTime;
-        HitPointsMax=HitPoints;
+        if(LastShotTime==0){
+            g.drawString("Нажмите кнопку стрельбы, чтобы выстрелить", (int)(x-50), (int)(y-50));
+        }else {
+            if((((System.currentTimeMillis()-LastShotTime)*0.001)%1000)<RechargeTime) {
+                Integer.toString(((int) ((System.currentTimeMillis() - LastShotTime) * 0.001) % 1000));
+                g.drawString(Integer.toString((int) (RechargeTime - ((System.currentTimeMillis() - LastShotTime) * 0.001) % 1000)), (int) (x - 50), (int) (y - 50));
+            }else{
+                g.drawString("0",(int) (x - 50), (int) (y - 50) );
+            }
 
+        }
     }
 
 
     // если что х и у это координаты центра танка
 
     public void UpdatePlace() {
-        Recharge();
         double angleInRadians = Math.toRadians(angle);
         x += vy * Math.sin(angleInRadians);
         y -= vy * Math.cos(angleInRadians);
@@ -99,11 +105,6 @@ public class Tank extends GameObject {
             }
         }
 
-    }
-    public void Recharge(){
-        time=System.currentTimeMillis();
-        int Time=(int) (time%1000000);         // это секунды до 1000 начинаются не с начала
-        System.out.println(Time/1000);
     }
 
     public int[] getTankX() {

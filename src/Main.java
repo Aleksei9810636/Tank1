@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) throws IOException{
         GameObject gameObject=new GameObject();  // вообщем то бесполезно
         Tank tank1=new Tank(750,300, 1,  0.05, 900, 20, 5);
-        Tank tank2=new Tank(100, 100, 1, 0.05, 900, 1000, 7);
+        Tank tank2=new Tank(100, 100, 1, 0.05, 900, 1000, 2);
 
 
         Wall wall=new Wall(700, 400, 200, 25);

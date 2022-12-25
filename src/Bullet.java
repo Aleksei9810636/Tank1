@@ -1,11 +1,13 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Bullet {
     double x;
     double y;
     double Angle;
     double v=8;
-    double Damage=2;
+    double DamageNormal=100;
+    double Damage;
     int IndicationTank;
 
     public Bullet(double x, double y, double GunAngle, int IndicationTank) {
@@ -13,6 +15,8 @@ public class Bullet {
         this.y = y;
         this.Angle=GunAngle;
         this.IndicationTank=IndicationTank; // какой танк выстрелил
+        Random random=new Random();
+        Damage=DamageNormal+random.nextInt(30)-15;
     }
 
     public void paint(Graphics g) {

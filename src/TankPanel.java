@@ -43,9 +43,11 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
     @Override
     public void mousePressed(MouseEvent e) {               //на нажатие
 //        System.out.println("mousePressed");
-
-        Bullet bullet=new Bullet(tank1.x, tank1.y, gun1.Angle, 1);
-        bullets.add(bullet);
+        if((System.currentTimeMillis()-tank1.LastShotTime)*0.001>tank1.RechargeTime) {
+            tank1.LastShotTime=System.currentTimeMillis();
+            Bullet bullet = new Bullet(tank1.x, tank1.y, gun1.Angle, 1);
+            bullets.add(bullet);
+        }
 
     }
 
@@ -79,8 +81,12 @@ public class TankPanel extends JPanel implements KeyEventDispatcher, MouseListen
         if (e.getID() == KeyEvent.KEY_PRESSED) {
 //            System.out.println(e.getKeyCode());
             if (e.getKeyCode() == 39) {
-                Bullet bullet=new Bullet(tank2.x, tank2.y, keyBoardGun.Angle, 2);
-                bullets.add(bullet);
+                if((System.currentTimeMillis()-tank2.LastShotTime)*0.001>tank2.RechargeTime) {
+                    tank2.LastShotTime=System.currentTimeMillis();
+                    Bullet bullet=new Bullet(tank2.x, tank2.y, keyBoardGun.Angle, 2);
+                    bullets.add(bullet);
+                }
+
             }
             if (e.getKeyCode() == 100) {
                 keyBoardGun.typeOfEvent4 = true;
